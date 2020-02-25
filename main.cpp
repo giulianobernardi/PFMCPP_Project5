@@ -30,7 +30,8 @@ Project 5: Part 1 / 4
 #include <iostream>
 #include <vector>
 // UDT storing rgba color
-struct Color {
+struct Color 
+{
     Color (float r_, float g_, float b_, float a_) : r(r_), g(g_), b(b_), a(a_) {}
     float r, g, b, a;
 };
@@ -53,7 +54,8 @@ struct Human
         height = 1.68f; // in [m]
         std::cout << "*** Human object created ***" << std::endl;
     }
-    ~Human(){std::cout << "*** Human object destroyed ***" << std::endl;}
+
+    ~Human() { std::cout << "*** Human object destroyed ***" << std::endl; }
 
     struct Hand
     {
@@ -83,6 +85,7 @@ void Human::addSteps(int addedSteps)
     for (int i = 0; i < addedSteps; i++)
     {
         this->totalSteps += 1;
+
         if ( i % 2 == 0 )
             this->leftFootFront = false;
         else
@@ -92,7 +95,8 @@ void Human::addSteps(int addedSteps)
     std::cout << "Total steps: " << this->totalSteps << "\nCurrent foot in front: " << (leftFootFront == true ? "Left" : "Right") << " foot" << std::endl;
 }
 
-void Human::goToSleep(bool isItTimeToSleep) {
+void Human::goToSleep(bool isItTimeToSleep) 
+{
     if (isItTimeToSleep)
         std::cout << "Person gone to sleep" << std::endl;
 }
@@ -116,7 +120,8 @@ struct Computer
         isFormatted = false;
         std::cout << "*** Computer object created ***" << std::endl;
     }
-    ~Computer(){std::cout << "*** Computer object destroyed ***" << std::endl;}
+
+    ~Computer() { std::cout << "*** Computer object destroyed ***" << std::endl; }
 
     struct App
     {
@@ -133,10 +138,12 @@ void Computer::formatComputer(bool toFormat)
 {
     int i = 0;
     std::cout << "Formatting computer" << std::endl;
+
     while (i < this->formatTime)
     {
         std::cout << "Current progress: " << ++i << "0%" << std::endl;
     }
+
     toFormat ? (isFormatted = true) : (isFormatted = false);
 }
 
@@ -163,7 +170,8 @@ struct Watch
         isResetted = true;
         std::cout << "*** Watch object created ***" << std::endl;
     }
-    ~Watch(){std::cout << "*** Watch object destroyed ***" << std::endl;}
+
+    ~Watch() { std::cout << "*** Watch object destroyed ***" << std::endl; }
 
     struct Wristband
     {
@@ -214,7 +222,8 @@ struct Table
         print(); 
         std::cout << "*** Table object created ***" << std::endl;
     }
-    ~Table(){std::cout << "*** Table object destroyed ***" << std::endl;}
+
+    ~Table() { std::cout << "*** Table object destroyed ***" << std::endl; }
 
     void print()
     {
@@ -266,7 +275,6 @@ struct Window
     int structIntegrity;
     int currDamage;
 
-
     Window(float height_, float width_, float weight_) //constructor
     {
         this->height = height_;
@@ -280,7 +288,8 @@ struct Window
         print();
         std::cout << "*** Window object created ***" << std::endl;
     }
-    ~Window(){std::cout << "*** Window object destroyed ***" << std::endl;}
+    
+    ~Window() { std::cout << "*** Window object destroyed ***" << std::endl; }
 
     void print()
     {
@@ -321,6 +330,7 @@ void Window::hammerWindow(int numBlows)
     {
         int blowStrength = rand() % 4 + 1;
         this->currDamage += blowStrength;
+
         if (this->currDamage >= this->structIntegrity)
         {
             std::cout << "The window has been broken!" << std::endl;
@@ -349,8 +359,11 @@ struct Classroom
     bool isBooked = true;
 
     Classroom() : numDesks(20)
-    { std::cout << "*** Classroom object created ***" << std::endl; }
-    ~Classroom(){std::cout << "*** Classroom object destroyed ***" << std::endl;}
+    { 
+        std::cout << "*** Classroom object created ***" << std::endl; 
+    }
+
+    ~Classroom() { std::cout << "*** Classroom object destroyed ***" << std::endl; }
 
     struct Desk
     {
@@ -398,15 +411,18 @@ struct School
 
         Classroom tmpClass;
         Window tmpWindow(1.2f, 1.6f, 12.f);
-        Table tmpTable(4, 1.6f, 1.2f, 10.f, true, true) ;
+        Table tmpTable(4, 1.6f, 1.2f, 10.f, true, true);
+
         for (int i = 0; i < numClasses; i++)
         {
             this->classrooms.push_back(tmpClass);
         }
+
         for (int i = 0; i < numWindows; i++)
         {
             this->windows.push_back(tmpWindow);
         }
+
         for (int i = 0; i < numTeacherTables; i++)
         {
             this->teacherTables.push_back(tmpTable);
@@ -435,7 +451,8 @@ struct Geek
     Watch theWatch;
     Computer theComputer;
 
-    Geek(Human theGeek_, Watch theWatch_, Computer theComputer_) {
+    Geek(Human theGeek_, Watch theWatch_, Computer theComputer_) 
+    {
         theGeek = theGeek_;
         theWatch = theWatch_;
         theComputer = theComputer_;
