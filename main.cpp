@@ -415,17 +415,17 @@ struct School
 
         for (int i = 0; i < numClasses; i++)
         {
-            this->classrooms.push_back(tmpClass);
+            this->classrooms.emplace_back(tmpClass);
         }
 
         for (int i = 0; i < numWindows; i++)
         {
-            this->windows.push_back(tmpWindow);
+            this->windows.emplace_back(tmpWindow);
         }
 
         for (int i = 0; i < numTeacherTables; i++)
         {
-            this->teacherTables.push_back(tmpTable);
+            this->teacherTables.emplace_back(tmpTable);
         }        
 
         std::cout << "School object created with" << std::endl;
