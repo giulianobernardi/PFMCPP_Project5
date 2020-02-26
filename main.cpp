@@ -409,23 +409,19 @@ struct School
         numWindows = numWindows_;
         numTeacherTables = numTeacherTables_;
 
-        Classroom tmpClass;
-        Window tmpWindow(1.2f, 1.6f, 12.f);
-        Table tmpTable(4, 1.6f, 1.2f, 10.f, true, true);
-
         for (int i = 0; i < numClasses; i++)
         {
-            this->classrooms.emplace_back(tmpClass);
+            this->classrooms.emplace_back();
         }
 
         for (int i = 0; i < numWindows; i++)
         {
-            this->windows.emplace_back(tmpWindow);
+            this->windows.emplace_back(1.2f, 1.6f, 12.f);
         }
 
         for (int i = 0; i < numTeacherTables; i++)
         {
-            this->teacherTables.emplace_back(tmpTable);
+            this->teacherTables.emplace_back(4, 1.6f, 1.2f, 10.f, true, true);
         }        
 
         std::cout << "School object created with" << std::endl;
