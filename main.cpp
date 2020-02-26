@@ -409,6 +409,10 @@ struct School
         numWindows = numWindows_;
         numTeacherTables = numTeacherTables_;
 
+        classrooms.reserve(numClasses);
+        windows.reserve(numWindows);
+        teacherTables.reserve(numTeacherTables);
+
         for (int i = 0; i < numClasses; i++)
         {
             this->classrooms.emplace_back();
