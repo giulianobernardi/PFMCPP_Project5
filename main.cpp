@@ -89,16 +89,12 @@ struct Human
     {
         numHands_ = 2;
         height_ = 1.68f; // in [m]
-        std::cout << "*** Human object created ***" << std::endl;
     }
 
-    ~Human() { std::cout << "*** Human object destroyed ***" << std::endl; }
+    ~Human() {}
 
     struct Hand
     {
-        Hand(){std::cout << "*** Hand object created ***" << std::endl;}
-        ~Hand(){std::cout << "*** Hand object destroyed ***" << std::endl;}
-
         bool isLeftHand_ = false;
         float fingerLength_ = 0.082f;        //2) in [m]
     };    
@@ -106,9 +102,18 @@ struct Human
     bool isMale();
     void addSteps(int addedSteps);
     void goToSleep(bool isItTimeToSleep);
+    void printInfo();
     
     Hand myLeftHand;
 };
+
+void Human::printInfo()
+{
+    std::cout << "Num hands: " << this->numHands_ << " hands\n" <<
+    "Height: " << this->height_ << " m\n" <<
+    "Chromosome: " << this->chromosome_ << "\n" <<
+    "Total steps: " << this->totalSteps_ << " steps\n" << std::endl; 
+}
 
 bool Human::isMale()
 {
@@ -155,10 +160,9 @@ struct Computer
     {
         processorSpeed_ = 4.2f; // in [GHz]
         isFormatted_ = false;
-        std::cout << "*** Computer object created ***" << std::endl;
     }
 
-    ~Computer() { std::cout << "*** Computer object destroyed ***" << std::endl; }
+    ~Computer() {}
 
     struct App
     {
@@ -167,9 +171,20 @@ struct Computer
     };
     
     void formatComputer(bool toFormat);
+    void printInfo();
     
     App JUCE;
 };
+
+void Computer::printInfo()
+{
+    std::cout <<
+    "Num keys: " << this->numKeys_ << "\n" <<
+    "Processor speed: " << this->processorSpeed_ << " GHz\n" <<
+    "It is a laptop: " << this->isLaptop_ << "\n" <<
+    "It is formatted: " << this->isFormatted_ << "\n" << 
+    "Format time: " << this->formatTime_ << " s\n" << std::endl;
+}
 
 void Computer::formatComputer(bool toFormat)
 {
@@ -205,10 +220,9 @@ struct Watch
         weight_ = 50.0f; // in [g]
         isDigital_ = true;
         isResetted_ = true;
-        std::cout << "*** Watch object created ***" << std::endl;
     }
 
-    ~Watch() { std::cout << "*** Watch object destroyed ***" << std::endl; }
+    ~Watch() {}
 
     struct Wristband
     {
@@ -218,9 +232,20 @@ struct Watch
     
     void reset(bool toReset);
     void setAlarm(float timeAlarm);
+    void printInfo();
     
     Wristband myPlasticWB;
 }; 
+
+void Watch::printInfo()
+{
+    std::cout << 
+    "Num batteries: " << this->numBatteries_ << "\n" <<
+    "Total hours: " << this->totalHours_ << " h\n" <<
+    "Weight: " << this->weight_ << " g\n" <<
+    "It is digital: " << this->isDigital_ << "\n" << 
+    "It is resetted: " << this->isResetted_ << " \n" << std::endl; 
+}
 
 void Watch::reset(bool toReset)
 {
@@ -326,7 +351,7 @@ struct Window
         std::cout << "*** Window object created ***" << std::endl;
     }
     
-    ~Window() { std::cout << "*** Window object destroyed ***" << std::endl; }
+    ~Window() {}
 
     void print()
     {
@@ -395,12 +420,9 @@ struct Classroom
     float length = 5.0f; // in [kg]
     bool isBooked = true;
 
-    Classroom() : numDesks(20)
-    { 
-        std::cout << "*** Classroom object created ***" << std::endl; 
-    }
+    Classroom() : numDesks(20) {}
 
-    ~Classroom() { std::cout << "*** Classroom object destroyed ***" << std::endl; }
+    ~Classroom() {}
 
     struct Desk
     {
@@ -508,20 +530,52 @@ struct Geek
 int main()
 {
     // --------------------------------
-    std::cout << "----------------------" << std::endl;  
-    Human human1;
-    std::cout << "----------------------\n" << std::endl;  
+    Human human1;  
     // --------------------------------
-    std::cout << "----------------------" << std::endl;  
     Computer computer1;
-    std::cout << "----------------------\n" << std::endl;
     // --------------------------------
-    std::cout << "----------------------" << std::endl;  
     Watch watch1;
-    std::cout << "----------------------\n" << std::endl;
-    
-    
-    // // School school;
+    // --------------------------------
+
+    std::cout << "========================\n" << std::endl;
+
+    // Access member variables of human directly
+    std::cout << "Human object instance recap obtained accessing member variables directly:\n" << 
+    "Num hands: " << human1.numHands_ << " hands\n" <<
+    "Height: " << human1.height_ << " m\n" <<
+    "Chromosome: " << human1.chromosome_ << "\n" <<
+    "Total steps: " << human1.totalSteps_ << " steps\n" << std::endl; 
+    // Access member variables of human through member function
+    std::cout << "Human object instance recap obtained accessing member variables through member function:" << std::endl;
+    human1.printInfo();
+
+    std::cout << "========================\n" << std::endl;
+
+    // Access member variables of computer1 directly
+    std::cout << "Computer object instance recap obtained accessing member variables directly:\n" << 
+    "Num keys: " << computer1.numKeys_ << "\n" <<
+    "Processor speed: " << computer1.processorSpeed_ << " GHz\n" <<
+    "It is a laptop: " << computer1.isLaptop_ << "\n" <<
+    "It is formatted: " << computer1.isFormatted_ << "\n" << 
+    "Format time: " << computer1.formatTime_ << " s\n" << std::endl; 
+    // Access member variables of computer1 through member function
+    std::cout << "Computer object instance recap obtained accessing member variables through member function:" << std::endl;
+    computer1.printInfo();
+
+    std::cout << "========================\n" << std::endl;
+
+    // Access member variables of watch1 directly
+    std::cout << "Watch object instance recap obtained accessing member variables directly:\n" << 
+    "Num batteries: " << watch1.numBatteries_ << "\n" <<
+    "Total hours: " << watch1.totalHours_ << " h\n" <<
+    "Weight: " << watch1.weight_ << " g\n" <<
+    "It is digital: " << watch1.isDigital_ << "\n" << 
+    "It is resetted: " << watch1.isResetted_ << " \n" << std::endl; 
+    // Access member variables of watch1 through member function
+    std::cout << "Watch object instance recap obtained accessing member variables through member function:" << std::endl;
+    watch1.printInfo();
+
+    std::cout << "========================\n" << std::endl;   
+
     std::cout << "good to go!\n" << std::endl;
-    std::cout << "Now we get all the destructors of objects defined in main (in reverse order)\n" << std::endl;
 }
