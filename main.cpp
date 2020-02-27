@@ -79,24 +79,24 @@ struct Color
 */
 struct Human
 {
-    int numHands_;
-    float height_; // in [m]
-    std::string chromosome_ = "XX";
-    int totalSteps_ = 0;
-    bool leftFootFront_ = true;
+    int numHands;
+    float height; // in [m]
+    std::string chromosome = "XX";
+    int totalSteps = 0;
+    bool leftFootFront = true;
 
     Human() // constructor
     {
-        numHands_ = 2;
-        height_ = 1.68f; // in [m]
+        numHands = 2;
+        height = 1.68f; // in [m]
     }
 
     ~Human() {}
 
     struct Hand
     {
-        bool isLeftHand_ = false;
-        float fingerLength_ = 0.082f;        //2) in [m]
+        bool isLeftHand = false;
+        float fingerLength = 0.082f;        //2) in [m]
     };    
     
     bool isMale();
@@ -109,15 +109,15 @@ struct Human
 
 void Human::printInfo()
 {
-    std::cout << "Num hands: " << this->numHands_ << " hands\n" <<
-    "Height: " << this->height_ << " m\n" <<
-    "Chromosome: " << this->chromosome_ << "\n" <<
-    "Total steps: " << this->totalSteps_ << " steps\n" << std::endl; 
+    std::cout << "Num hands: " << this->numHands << " hands\n" <<
+    "Height: " << this->height << " m\n" <<
+    "Chromosome: " << this->chromosome << "\n" <<
+    "Total steps: " << this->totalSteps << " steps\n" << std::endl; 
 }
 
 bool Human::isMale()
 {
-    std::size_t found = this->chromosome_.find("Y");
+    std::size_t found = this->chromosome.find("Y");
     return (found!=std::string::npos ? true : false);
 }
 
@@ -126,15 +126,15 @@ void Human::addSteps(int addedSteps)
 {
     for (int i = 0; i < addedSteps; i++)
     {
-        this->totalSteps_ += 1;
+        this->totalSteps += 1;
 
         if ( i % 2 == 0 )
-            this->leftFootFront_ = false;
+            this->leftFootFront = false;
         else
-            this->leftFootFront_ = true;
+            this->leftFootFront = true;
     }
 
-    std::cout << "Total steps: " << this->totalSteps_ << "\nCurrent foot in front: " << (leftFootFront_ == true ? "Left" : "Right") << " foot" << std::endl;
+    std::cout << "Total steps: " << this->totalSteps << "\nCurrent foot in front: " << (leftFootFront == true ? "Left" : "Right") << " foot" << std::endl;
 }
 
 void Human::goToSleep(bool isItTimeToSleep) 
@@ -150,16 +150,16 @@ void Human::goToSleep(bool isItTimeToSleep)
 */
 struct Computer
 {
-    int numKeys_;
-    float processorSpeed_; // in [GHz]
-    bool isLaptop_;
-    bool isFormatted_;
-    int formatTime_ = 10;
+    int numKeys;
+    float processorSpeed; // in [GHz]
+    bool isLaptop;
+    bool isFormatted;
+    int formatTime = 10;
 
-    Computer() : numKeys_(48), isLaptop_(true)// constructor
+    Computer() : numKeys(48), isLaptop(true)// constructor
     {
-        processorSpeed_ = 4.2f; // in [GHz]
-        isFormatted_ = false;
+        processorSpeed = 4.2f; // in [GHz]
+        isFormatted = false;
     }
 
     ~Computer() {}
@@ -179,11 +179,11 @@ struct Computer
 void Computer::printInfo()
 {
     std::cout <<
-    "Num keys: " << this->numKeys_ << "\n" <<
-    "Processor speed: " << this->processorSpeed_ << " GHz\n" <<
-    "It is a laptop: " << this->isLaptop_ << "\n" <<
-    "It is formatted: " << this->isFormatted_ << "\n" << 
-    "Format time: " << this->formatTime_ << " s\n" << std::endl;
+    "Num keys: " << this->numKeys << "\n" <<
+    "Processor speed: " << this->processorSpeed << " GHz\n" <<
+    "It is a laptop: " << this->isLaptop << "\n" <<
+    "It is formatted: " << this->isFormatted << "\n" << 
+    "Format time: " << this->formatTime << " s\n" << std::endl;
 }
 
 void Computer::formatComputer(bool toFormat)
@@ -191,12 +191,12 @@ void Computer::formatComputer(bool toFormat)
     int i = 0;
     std::cout << "Formatting computer" << std::endl;
 
-    while (i < this->formatTime_)
+    while (i < this->formatTime)
     {
         std::cout << "Current progress: " << ++i << "0%" << std::endl;
     }
 
-    toFormat ? (isFormatted_ = true) : (isFormatted_ = false);
+    toFormat ? (isFormatted = true) : (isFormatted = false);
 }
 
 /* 
@@ -206,20 +206,20 @@ void Computer::formatComputer(bool toFormat)
 */
 struct Watch
 {
-    int numBatteries_;
-    int totalHours_;
-    float weight_; // in [g]
-    bool isDigital_;
-    bool isResetted_;
-    float currentAlarmTime_;
+    int numBatteries;
+    int totalHours;
+    float weight; // in [g]
+    bool isDigital;
+    bool isResetted;
+    float currentAlarmTime;
 
     Watch() // constructor
     {
-        numBatteries_ = 1;
-        totalHours_ = 12;
-        weight_ = 50.0f; // in [g]
-        isDigital_ = true;
-        isResetted_ = true;
+        numBatteries = 1;
+        totalHours = 12;
+        weight = 50.0f; // in [g]
+        isDigital = true;
+        isResetted = true;
     }
 
     ~Watch() {}
@@ -240,22 +240,22 @@ struct Watch
 void Watch::printInfo()
 {
     std::cout << 
-    "Num batteries: " << this->numBatteries_ << "\n" <<
-    "Total hours: " << this->totalHours_ << " h\n" <<
-    "Weight: " << this->weight_ << " g\n" <<
-    "It is digital: " << this->isDigital_ << "\n" << 
-    "It is resetted: " << this->isResetted_ << " \n" << std::endl; 
+    "Num batteries: " << this->numBatteries << "\n" <<
+    "Total hours: " << this->totalHours << " h\n" <<
+    "Weight: " << this->weight << " g\n" <<
+    "It is digital: " << this->isDigital << "\n" << 
+    "It is resetted: " << this->isResetted << " \n" << std::endl; 
 }
 
 void Watch::reset(bool toReset)
 {
-    toReset ? (isResetted_ = true) : (isResetted_ = false);
+    toReset ? (isResetted = true) : (isResetted = false);
     std::cout << "Watch resetted" << std::endl;
 }
 
 void Watch::setAlarm(float timeAlarm)
 {
-    this->currentAlarmTime_ = timeAlarm;
+    this->currentAlarmTime = timeAlarm;
 }
 
 /* 
@@ -265,22 +265,22 @@ void Watch::setAlarm(float timeAlarm)
 */
 struct Table
 {
-    int numLegs_;
-    float height_; // in [m]
-    float width_; // in [m]
-    float weight_; // in [kg]
-    bool isWooden_;
-    bool isClean_;
+    int numLegs;
+    float height; // in [m]
+    float width; // in [m]
+    float weight; // in [kg]
+    bool isWooden;
+    bool isClean;
 
 
-    Table(int numLegs, float height, float width, float weight, bool isWooden, bool isClean) 
+    Table(int numLegs_, float height_, float width_, float weight_, bool isWooden_, bool isClean_) 
     {
-        this->numLegs_ = numLegs;
-        this->height_ = height; // in [m]
-        this->width_ = width; // in [m]
-        this->weight_ = weight; // in [kg]
-        this->isWooden_ = isWooden;
-        this->isClean_ = isClean;  
+        numLegs = numLegs_;
+        height = height_; // in [m]
+        width = width_; // in [m]
+        weight = weight_; // in [kg]
+        isWooden = isWooden_;
+        isClean = isClean_;  
         print(); 
         std::cout << "*** Table object created ***" << std::endl;
     }
@@ -290,18 +290,18 @@ struct Table
     void print()
     {
         std::cout << 
-        "Num legs: " << numLegs_ << "\n" << 
-        "Height: " << height_ << "\n" << 
-        "Width: " << width_ << "\n" << 
-        "Weight: " << weight_ << 
+        "Num legs: " << numLegs << "\n" << 
+        "Height: " << height << "\n" << 
+        "Width: " << width << "\n" << 
+        "Weight: " << weight << 
         std::endl;
     }
 
     struct Tablecloth
     {
-        bool isPlastic_ = true;
-        float height_ = 1.5f; // in [m]
-        float width_ = 1.0f; // in [m]
+        bool isPlastic = true;
+        float height = 1.5f; // in [m]
+        float width = 1.0f; // in [m]
     };
     
     void cleanTable(bool toClean);
@@ -312,7 +312,7 @@ struct Table
 
 void Table::cleanTable(bool toClean)
 {
-    toClean ? (isClean_ = true) : (isClean_ = false);
+    toClean ? (isClean = true) : (isClean = false);
 }
 
 void Table::placeTablecloth(Table::Tablecloth myTablecloth)
@@ -328,25 +328,25 @@ void Table::placeTablecloth(Table::Tablecloth myTablecloth)
 */
 struct Window
 {
-    float height_; // in [m]
-    float width_; // in [m]
-    float weight_; // in [kg]
-    bool isClean_;
-    bool isOpen_;
-    bool isGlassOpaque_;
-    int structIntegrity_;
-    int currDamage_;
+    float height; // in [m]
+    float width; // in [m]
+    float weight; // in [kg]
+    bool isClean;
+    bool isOpen;
+    bool isGlassOpaque;
+    int structIntegrity;
+    int currDamage;
 
-    Window(float height, float width, float weight) //constructor
+    Window(float height_, float width_, float weight_) //constructor
     {
-        this->height_ = height;
-        this->width_ = width;
-        this->weight_ = weight;
-        this->isClean_ = true;
-        this->isOpen_ = false;
-        this->isGlassOpaque_ = true;
-        this->structIntegrity_ = 10;
-        this->currDamage_ = 0;
+        this->height = height_;
+        this->width = width_;
+        this->weight = weight_;
+        isClean = true;
+        isOpen = false;
+        isGlassOpaque = true;
+        structIntegrity = 10;
+        currDamage = 0;
         print();
         std::cout << "*** Window object created ***" << std::endl;
     }
@@ -356,9 +356,9 @@ struct Window
     void print()
     {
         std::cout << 
-        "Height: " << this->height_ << "\n" << 
-        "Width: " << this->width_ << "\n" << 
-        "Weight: " << this->weight_ << 
+        "Height: " << this->height << "\n" << 
+        "Width: " << this->width << "\n" << 
+        "Weight: " << this->weight << 
         std::endl;
     }
 
@@ -377,12 +377,12 @@ struct Window
 
 void Window::cleanWindow(bool toClean)
 {
-    toClean ? (isClean_ = true) : (isClean_ = false);
+    toClean ? (isClean = true) : (isClean = false);
 }
 
 void Window::openWindow(bool toOpen)
 {
-    toOpen ? (isOpen_ = true) : (isOpen_ = false);
+    toOpen ? (isOpen = true) : (isOpen = false);
 }
 
 // tests the structural integrity of the window upon a bunch of hammer blows
@@ -391,16 +391,16 @@ void Window::hammerWindow(int numBlows)
     for (int i = 0; i < numBlows; i++)
     {
         int blowStrength = rand() % 4 + 1;
-        this->currDamage_ += blowStrength;
+        this->currDamage += blowStrength;
 
-        if (this->currDamage_ >= this->structIntegrity_)
+        if (this->currDamage >= this->structIntegrity)
         {
             std::cout << "The window has been broken!" << std::endl;
             break;
         }
         else
         {
-            std::cout << "Current damage level: " << this->currDamage_ << "/10" << std::endl;
+            std::cout << "Current damage level: " << this->currDamage << "/10" << std::endl;
         }
     }
 }
@@ -455,18 +455,18 @@ int Classroom::howManyFreeDesks()
 */
 struct School
 {
-    int numClasses_;
-    int numWindows_;
-    int numTeacherTables_;
+    int numClasses;
+    int numWindows;
+    int numTeacherTables;
     std::vector<Classroom> classrooms;
     std::vector<Window> windows;
     std::vector<Table> teacherTables;
 
-    School(int numClasses, int numWindows, int numTeacherTables) 
+    School(int numClasses_, int numWindows_, int numTeacherTables_) 
     {
-        this->numClasses_ = numClasses;
-        this->numWindows_ = numWindows;
-        this->numTeacherTables_ = numTeacherTables;
+        numClasses = numClasses_;
+        numWindows = numWindows_;
+        numTeacherTables = numTeacherTables_;
 
         classrooms.reserve(numClasses);
         windows.reserve(numWindows);
@@ -506,22 +506,22 @@ struct School
 */
 struct Geek
 {
-    Human theGeek_;
-    Watch theWatch_;
-    Computer theComputer_;
+    Human theGeek;
+    Watch theWatch;
+    Computer theComputer;
 
-    Geek(Human theGeek, Watch theWatch, Computer theComputer) 
+    Geek(Human theGeek_, Watch theWatch_, Computer theComputer_) 
     {
-        theGeek_ = theGeek;
-        theWatch_ = theWatch;
-        theComputer_ = theComputer;
+        theGeek = theGeek_;
+        theWatch = theWatch_;
+        theComputer = theComputer_;
         std::cout << "*** Geek object created ***" << std::endl;
     }
     ~Geek()
     {
-        theGeek_.goToSleep(true);
-        theWatch_.reset(true);
-        theComputer_.formatComputer(true);
+        theGeek.goToSleep(true);
+        theWatch.reset(true);
+        theComputer.formatComputer(true);
         std::cout << "Geek object destroyed" << std::endl;
     }
 }; 
@@ -541,10 +541,10 @@ int main()
 
     // Access member variables of human directly
     std::cout << "Human object instance recap obtained accessing member variables directly:\n" << 
-    "Num hands: " << human1.numHands_ << " hands\n" <<
-    "Height: " << human1.height_ << " m\n" <<
-    "Chromosome: " << human1.chromosome_ << "\n" <<
-    "Total steps: " << human1.totalSteps_ << " steps\n" << std::endl; 
+    "Num hands: " << human1.numHands << " hands\n" <<
+    "Height: " << human1.height << " m\n" <<
+    "Chromosome: " << human1.chromosome << "\n" <<
+    "Total steps: " << human1.totalSteps << " steps\n" << std::endl; 
     // Access member variables of human through member function
     std::cout << "Human object instance recap obtained accessing member variables through member function:" << std::endl;
     human1.printInfo();
@@ -553,11 +553,11 @@ int main()
 
     // Access member variables of computer1 directly
     std::cout << "Computer object instance recap obtained accessing member variables directly:\n" << 
-    "Num keys: " << computer1.numKeys_ << "\n" <<
-    "Processor speed: " << computer1.processorSpeed_ << " GHz\n" <<
-    "It is a laptop: " << computer1.isLaptop_ << "\n" <<
-    "It is formatted: " << computer1.isFormatted_ << "\n" << 
-    "Format time: " << computer1.formatTime_ << " s\n" << std::endl; 
+    "Num keys: " << computer1.numKeys << "\n" <<
+    "Processor speed: " << computer1.processorSpeed << " GHz\n" <<
+    "It is a laptop: " << computer1.isLaptop << "\n" <<
+    "It is formatted: " << computer1.isFormatted << "\n" << 
+    "Format time: " << computer1.formatTime << " s\n" << std::endl; 
     // Access member variables of computer1 through member function
     std::cout << "Computer object instance recap obtained accessing member variables through member function:" << std::endl;
     computer1.printInfo();
@@ -566,11 +566,11 @@ int main()
 
     // Access member variables of watch1 directly
     std::cout << "Watch object instance recap obtained accessing member variables directly:\n" << 
-    "Num batteries: " << watch1.numBatteries_ << "\n" <<
-    "Total hours: " << watch1.totalHours_ << " h\n" <<
-    "Weight: " << watch1.weight_ << " g\n" <<
-    "It is digital: " << watch1.isDigital_ << "\n" << 
-    "It is resetted: " << watch1.isResetted_ << " \n" << std::endl; 
+    "Num batteries: " << watch1.numBatteries << "\n" <<
+    "Total hours: " << watch1.totalHours << " h\n" <<
+    "Weight: " << watch1.weight << " g\n" <<
+    "It is digital: " << watch1.isDigital << "\n" << 
+    "It is resetted: " << watch1.isResetted << " \n" << std::endl; 
     // Access member variables of watch1 through member function
     std::cout << "Watch object instance recap obtained accessing member variables through member function:" << std::endl;
     watch1.printInfo();
