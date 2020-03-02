@@ -43,6 +43,7 @@ send me a DM to check your pull request
 
 #include <iostream>
 #include <vector>
+#include "LeakedObjectDetector.h"
 // UDT storing rgba color
 struct Color 
 {
@@ -82,6 +83,8 @@ struct Human
     void printInfo();
     
     Hand myLeftHand;
+    
+    JUCE_LEAK_DETECTOR(Human)
 };
 
 void Human::printInfo()
@@ -120,6 +123,14 @@ void Human::goToSleep(bool isItTimeToSleep)
         std::cout << "Person gone to sleep" << std::endl;
 }
 
+
+struct HumanWrapper
+{
+    HumanWrapper ( Human* ptr ) : ptrToHuman( ptr ) {}
+    ~HumanWrapper() { delete ptrToHuman; }
+    Human* ptrToHuman = nullptr;
+};
+
 /* 
 **********************************************************************
  copied UDT 2:
@@ -151,6 +162,8 @@ struct Computer
     void printInfo();
     
     App JUCE;
+
+    // JUCE_LEAK_DETECTOR(Computer)
 };
 
 void Computer::printInfo()
@@ -212,6 +225,8 @@ struct Watch
     void printInfo();
     
     Wristband myPlasticWB;
+
+    // JUCE_LEAK_DETECTOR(Watch)
 }; 
 
 void Watch::printInfo()
@@ -285,6 +300,8 @@ struct Table
     void placeTablecloth(Tablecloth myTablecloth);
     
     Tablecloth currentTablecloth;
+
+    // JUCE_LEAK_DETECTOR(Table)
 }; 
 
 void Table::cleanTable(bool toClean)
@@ -350,6 +367,8 @@ struct Window
     void hammerWindow(int numBlows);
     
     Knob myKnob;
+
+    // JUCE_LEAK_DETECTOR(Window)
 }; 
 
 void Window::cleanWindow(bool toClean)
@@ -412,6 +431,8 @@ struct Classroom
 
     void spawnDesk();
     int howManyFreeDesks();
+
+    // JUCE_LEAK_DETECTOR(Classroom)
 }; 
 
 void Classroom::spawnDesk()
@@ -474,6 +495,8 @@ struct School
     {
         std::cout << "School object destroyed" << std::endl;
     }
+
+    // JUCE_LEAK_DETECTOR(School)
 }; 
 
 /* 
@@ -501,13 +524,15 @@ struct Geek
         theComputer.formatComputer(true);
         std::cout << "Geek object destroyed" << std::endl;
     }
+
+    // JUCE_LEAK_DETECTOR(Geek)
 }; 
 
  
 int main()
 {
     // --------------------------------
-    Human human1;  
+    HumanWrapper human1 (new Human());  
     // --------------------------------
     Computer computer1;
     // --------------------------------
@@ -517,42 +542,45 @@ int main()
     std::cout << "========================\n" << std::endl;
 
     // Access member variables of human directly
-    std::cout << "Human object instance recap obtained accessing member variables directly:\n" << 
-    "Num hands: " << human1.numHands << " hands\n" <<
-    "Height: " << human1.height << " m\n" <<
-    "Chromosome: " << human1.chromosome << "\n" <<
-    "Total steps: " << human1.totalSteps << " steps\n" << std::endl; 
-    // Access member variables of human through member function
-    std::cout << "Human object instance recap obtained accessing member variables through member function:" << std::endl;
-    human1.printInfo();
-
+    std::cout << "Human object instance recap obtained accessing member variables directly:" << std::endl;
+    if (human1.ptrToHuman != nullptr)
+    {
+        std::cout << 
+        "Num hands: " << human1.ptrToHuman->numHands << " hands\n" <<
+        "Height: " << human1.ptrToHuman->height << " m\n" <<
+        "Chromosome: " << human1.ptrToHuman->chromosome << "\n" <<
+        "Total steps: " << human1.ptrToHuman->totalSteps << " steps\n" << std::endl; 
+        // Access member variables of human through member function
+        std::cout << "Human object instance recap obtained accessing member variables through member function:" << std::endl;
+        human1.ptrToHuman->printInfo();
+    }
     std::cout << "========================\n" << std::endl;
 
-    // Access member variables of computer1 directly
-    std::cout << "Computer object instance recap obtained accessing member variables directly:\n" << 
-    "Num keys: " << computer1.numKeys << "\n" <<
-    "Processor speed: " << computer1.processorSpeed << " GHz\n" <<
-    "It is a laptop: " << computer1.isLaptop << "\n" <<
-    "It is formatted: " << computer1.isFormatted << "\n" << 
-    "Format time: " << computer1.formatTime << " s\n" << std::endl; 
-    // Access member variables of computer1 through member function
-    std::cout << "Computer object instance recap obtained accessing member variables through member function:" << std::endl;
-    computer1.printInfo();
+    // // Access member variables of computer1 directly
+    // std::cout << "Computer object instance recap obtained accessing member variables directly:\n" << 
+    // "Num keys: " << computer1.numKeys << "\n" <<
+    // "Processor speed: " << computer1.processorSpeed << " GHz\n" <<
+    // "It is a laptop: " << computer1.isLaptop << "\n" <<
+    // "It is formatted: " << computer1.isFormatted << "\n" << 
+    // "Format time: " << computer1.formatTime << " s\n" << std::endl; 
+    // // Access member variables of computer1 through member function
+    // std::cout << "Computer object instance recap obtained accessing member variables through member function:" << std::endl;
+    // computer1.printInfo();
 
-    std::cout << "========================\n" << std::endl;
+    // std::cout << "========================\n" << std::endl;
 
-    // Access member variables of watch1 directly
-    std::cout << "Watch object instance recap obtained accessing member variables directly:\n" << 
-    "Num batteries: " << watch1.numBatteries << "\n" <<
-    "Total hours: " << watch1.totalHours << " h\n" <<
-    "Weight: " << watch1.weight << " g\n" <<
-    "It is digital: " << watch1.isDigital << "\n" << 
-    "It is resetted: " << watch1.isResetted << " \n" << std::endl; 
-    // Access member variables of watch1 through member function
-    std::cout << "Watch object instance recap obtained accessing member variables through member function:" << std::endl;
-    watch1.printInfo();
+    // // Access member variables of watch1 directly
+    // std::cout << "Watch object instance recap obtained accessing member variables directly:\n" << 
+    // "Num batteries: " << watch1.numBatteries << "\n" <<
+    // "Total hours: " << watch1.totalHours << " h\n" <<
+    // "Weight: " << watch1.weight << " g\n" <<
+    // "It is digital: " << watch1.isDigital << "\n" << 
+    // "It is resetted: " << watch1.isResetted << " \n" << std::endl; 
+    // // Access member variables of watch1 through member function
+    // std::cout << "Watch object instance recap obtained accessing member variables through member function:" << std::endl;
+    // watch1.printInfo();
 
-    std::cout << "========================\n" << std::endl;   
+    // std::cout << "========================\n" << std::endl;   
 
     std::cout << "good to go!\n" << std::endl;
 }
