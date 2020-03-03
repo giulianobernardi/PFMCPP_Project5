@@ -29,20 +29,9 @@ send me a DM to check your pull request
  see here for an example: https://repl.it/@matkatmusic/ch3p04example
  */
 
-
-
-
-
-
-
-
-
-
-
-
-
 #include <iostream>
 #include <vector>
+#include "LeakedObjectDetector.h"
 // UDT storing rgba color
 struct Color 
 {
@@ -82,6 +71,8 @@ struct Human
     void printInfo();
     
     Hand myLeftHand;
+    
+    JUCE_LEAK_DETECTOR(Human)
 };
 
 void Human::printInfo()
@@ -120,6 +111,14 @@ void Human::goToSleep(bool isItTimeToSleep)
         std::cout << "Person gone to sleep" << std::endl;
 }
 
+// Wrapper for UDT Human
+struct HumanWrapper
+{
+    HumanWrapper ( Human* ptr ) : ptrToHuman( ptr ) {}
+    ~HumanWrapper() { delete ptrToHuman; }
+    Human* ptrToHuman = nullptr;
+};
+
 /* 
 **********************************************************************
  copied UDT 2:
@@ -151,6 +150,8 @@ struct Computer
     void printInfo();
     
     App JUCE;
+
+    JUCE_LEAK_DETECTOR(Computer)
 };
 
 void Computer::printInfo()
@@ -175,6 +176,14 @@ void Computer::formatComputer(bool toFormat)
 
     toFormat ? (isFormatted = true) : (isFormatted = false);
 }
+
+// Wrapper for UDT Computer
+struct ComputerWrapper
+{
+    ComputerWrapper ( Computer* ptr ) : ptrToComputer( ptr ) {}
+    ~ComputerWrapper() { delete ptrToComputer; }
+    Computer* ptrToComputer = nullptr;
+};
 
 /* 
 **********************************************************************
@@ -212,6 +221,8 @@ struct Watch
     void printInfo();
     
     Wristband myPlasticWB;
+
+    JUCE_LEAK_DETECTOR(Watch)
 }; 
 
 void Watch::printInfo()
@@ -234,6 +245,14 @@ void Watch::setAlarm(float timeAlarm)
 {
     this->currentAlarmTime = timeAlarm;
 }
+
+// Wrapper for UDT Watch
+struct WatchWrapper
+{
+    WatchWrapper ( Watch* ptr ) : ptrToWatch( ptr ) {}
+    ~WatchWrapper() { delete ptrToWatch; }
+    Watch* ptrToWatch = nullptr;
+};
 
 /* 
 **********************************************************************
@@ -285,6 +304,8 @@ struct Table
     void placeTablecloth(Tablecloth myTablecloth);
     
     Tablecloth currentTablecloth;
+
+    JUCE_LEAK_DETECTOR(Table)
 }; 
 
 void Table::cleanTable(bool toClean)
@@ -297,6 +318,13 @@ void Table::placeTablecloth(Table::Tablecloth myTablecloth)
     this->currentTablecloth = myTablecloth;
 }
 
+// Wrapper for UDT Table
+struct TableWrapper
+{
+    TableWrapper ( Table* ptr ) : ptrToTable( ptr ) {}
+    ~TableWrapper() { delete ptrToTable; }
+    Table* ptrToTable = nullptr;
+};
 
 /* 
 **********************************************************************
@@ -350,6 +378,8 @@ struct Window
     void hammerWindow(int numBlows);
     
     Knob myKnob;
+
+    // JUCE_LEAK_DETECTOR(Window)
 }; 
 
 void Window::cleanWindow(bool toClean)
@@ -382,6 +412,14 @@ void Window::hammerWindow(int numBlows)
     }
 }
 
+// Wrapper for UDT Window
+struct WindowWrapper
+{
+    WindowWrapper ( Window* ptr ) : ptrToWindow( ptr ) {}
+    ~WindowWrapper() { delete ptrToWindow; }
+    Window* ptrToWindow = nullptr;
+};
+
 
 /* 
 **********************************************************************
@@ -412,6 +450,8 @@ struct Classroom
 
     void spawnDesk();
     int howManyFreeDesks();
+
+    // JUCE_LEAK_DETECTOR(Classroom)
 }; 
 
 void Classroom::spawnDesk()
@@ -424,6 +464,13 @@ int Classroom::howManyFreeDesks()
     return numDesks - occupiedDesks;
 }
 
+// Wrapper for UDT Classroom
+struct ClassroomWrapper
+{
+    ClassroomWrapper ( Classroom* ptr ) : ptrToClassroom( ptr ) {}
+    ~ClassroomWrapper() { delete ptrToClassroom; }
+    Classroom* ptrToClassroom = nullptr;
+};
 
 /* 
 **********************************************************************
@@ -474,7 +521,17 @@ struct School
     {
         std::cout << "School object destroyed" << std::endl;
     }
+
+    JUCE_LEAK_DETECTOR(School)
 }; 
+
+// Wrapper for UDT School
+struct SchoolWrapper
+{
+    SchoolWrapper ( School* ptr ) : ptrToSchool( ptr ) {}
+    ~SchoolWrapper() { delete ptrToSchool; }
+    School* ptrToSchool = nullptr;
+};
 
 /* 
 **********************************************************************
@@ -501,57 +558,76 @@ struct Geek
         theComputer.formatComputer(true);
         std::cout << "Geek object destroyed" << std::endl;
     }
+
+    JUCE_LEAK_DETECTOR(Geek)
 }; 
+
+// Wrapper for UDT Geek
+struct GeekWrapper
+{
+    GeekWrapper ( Geek* ptr ) : ptrToGeek( ptr ) {}
+    ~GeekWrapper() { delete ptrToGeek; }
+    Geek* ptrToGeek = nullptr;
+};
 
  
 int main()
 {
     // --------------------------------
-    Human human1;  
+    HumanWrapper human1 (new Human());  
     // --------------------------------
-    Computer computer1;
+    ComputerWrapper computer1 (new Computer());
     // --------------------------------
-    Watch watch1;
+    WatchWrapper watch1 (new Watch());
     // --------------------------------
 
     std::cout << "========================\n" << std::endl;
 
     // Access member variables of human directly
-    std::cout << "Human object instance recap obtained accessing member variables directly:\n" << 
-    "Num hands: " << human1.numHands << " hands\n" <<
-    "Height: " << human1.height << " m\n" <<
-    "Chromosome: " << human1.chromosome << "\n" <<
-    "Total steps: " << human1.totalSteps << " steps\n" << std::endl; 
-    // Access member variables of human through member function
-    std::cout << "Human object instance recap obtained accessing member variables through member function:" << std::endl;
-    human1.printInfo();
-
+    std::cout << "Human object instance recap obtained accessing member variables directly:" << std::endl;
+    if (human1.ptrToHuman != nullptr)
+    {
+        std::cout << 
+        "Num hands: " << human1.ptrToHuman->numHands << " hands\n" <<
+        "Height: " << human1.ptrToHuman->height << " m\n" <<
+        "Chromosome: " << human1.ptrToHuman->chromosome << "\n" <<
+        "Total steps: " << human1.ptrToHuman->totalSteps << " steps\n" << std::endl; 
+        // Access member variables of human through member function
+        std::cout << "Human object instance recap obtained accessing member variables through member function:" << std::endl;
+        human1.ptrToHuman->printInfo();
+    }
     std::cout << "========================\n" << std::endl;
 
     // Access member variables of computer1 directly
-    std::cout << "Computer object instance recap obtained accessing member variables directly:\n" << 
-    "Num keys: " << computer1.numKeys << "\n" <<
-    "Processor speed: " << computer1.processorSpeed << " GHz\n" <<
-    "It is a laptop: " << computer1.isLaptop << "\n" <<
-    "It is formatted: " << computer1.isFormatted << "\n" << 
-    "Format time: " << computer1.formatTime << " s\n" << std::endl; 
-    // Access member variables of computer1 through member function
-    std::cout << "Computer object instance recap obtained accessing member variables through member function:" << std::endl;
-    computer1.printInfo();
-
+    std::cout << "Computer object instance recap obtained accessing member variables directly:" << std::endl;
+    if (computer1.ptrToComputer != nullptr)
+    {
+        std::cout << 
+        "Num keys: " << computer1.ptrToComputer->numKeys << "\n" <<
+        "Processor speed: " << computer1.ptrToComputer->processorSpeed << " GHz\n" <<
+        "It is a laptop: " << computer1.ptrToComputer->isLaptop << "\n" <<
+        "It is formatted: " << computer1.ptrToComputer->isFormatted << "\n" << 
+        "Format time: " << computer1.ptrToComputer->formatTime << " s\n" << std::endl; 
+        // Access member variables of computer1 through member function
+        std::cout << "Computer object instance recap obtained accessing member variables through member function:" << std::endl;
+        computer1.ptrToComputer->printInfo();
+    }
     std::cout << "========================\n" << std::endl;
 
     // Access member variables of watch1 directly
-    std::cout << "Watch object instance recap obtained accessing member variables directly:\n" << 
-    "Num batteries: " << watch1.numBatteries << "\n" <<
-    "Total hours: " << watch1.totalHours << " h\n" <<
-    "Weight: " << watch1.weight << " g\n" <<
-    "It is digital: " << watch1.isDigital << "\n" << 
-    "It is resetted: " << watch1.isResetted << " \n" << std::endl; 
-    // Access member variables of watch1 through member function
-    std::cout << "Watch object instance recap obtained accessing member variables through member function:" << std::endl;
-    watch1.printInfo();
-
+    std::cout << "Watch object instance recap obtained accessing member variables directly:" << std::endl;
+    if (watch1.ptrToWatch != nullptr)
+    {
+        std::cout << 
+        "Num batteries: " << watch1.ptrToWatch->numBatteries << "\n" <<
+        "Total hours: " << watch1.ptrToWatch->totalHours << " h\n" <<
+        "Weight: " << watch1.ptrToWatch->weight << " g\n" <<
+        "It is digital: " << watch1.ptrToWatch->isDigital << "\n" << 
+        "It is resetted: " << watch1.ptrToWatch->isResetted << " \n" << std::endl; 
+        // Access member variables of watch1 through member function
+        std::cout << "Watch object instance recap obtained accessing member variables through member function:" << std::endl;
+        watch1.ptrToWatch->printInfo();
+    }
     std::cout << "========================\n" << std::endl;   
 
     std::cout << "good to go!\n" << std::endl;
