@@ -42,15 +42,16 @@ send me a DM to check your pull request
 #include <iostream>
 #include <vector>
 
-// #include "Classroom.h"
-// #include "Computer.h"
-// #include "Watch.h"
-// #include "Table.h"
-// #include "Human.h"
-// #include "Window.h"
+#include "Human.h"
+#include "Computer.h"
+#include "Watch.h"
+#include "Table.h"
+#include "Window.h"
+#include "Classroom.h"
+#include "Window.h"
 
-// #include "School.h" 
-// #include "Geek.h"
+#include "School.h" 
+#include "Geek.h"
 
 #include "Wrappers.h"
 
@@ -65,10 +66,15 @@ int main()
     // --------------------------------
     WatchWrapper watch1 (new Watch());
     // --------------------------------
-
-    // --------------------------------
     TableWrapper table1 (new Table());
-
+    // --------------------------------
+    WindowWrapper window1 (new Window());
+    // --------------------------------
+    ClassroomWrapper classroom1 (new Classroom());   
+    // --------------------------------
+    GeekWrapper geek1 (new Geek());   
+    // --------------------------------
+    SchoolWrapper school1 (new School(3,2,1));   
 
     std::cout << "========================\n" << std::endl;
 

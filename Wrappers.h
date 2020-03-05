@@ -1,11 +1,13 @@
-#include "Human.h"
-#include "Computer.h"
-#include "Watch.h"
-#include "Table.h"
-#include "Window.h"
-#include "Classroom.h"
-#include "School.h"
+#pragma once
+struct Human;
+struct Computer;
+struct Table;
+struct Window;
+struct Classroom;
+struct Watch;
 
+struct School;
+struct Geek;
 
 /* 
 ***********************************************************
@@ -79,11 +81,11 @@ struct SchoolWrapper
 };
 /* 
 ***********************************************************
-// */
-// // Wrapper for UDT Geek
-// struct GeekWrapper
-// {
-//     GeekWrapper ( Geek* ptr ) : ptrToGeek( ptr ) {}
-//     ~GeekWrapper() { delete ptrToGeek; }
-//     Geek* ptrToGeek = nullptr;
-// };
+*/
+// Wrapper for UDT Geek
+struct GeekWrapper
+{
+    GeekWrapper ( Geek* ptr );
+    ~GeekWrapper();
+    Geek* ptrToGeek = nullptr;
+};

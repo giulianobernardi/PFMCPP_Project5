@@ -1,3 +1,6 @@
+#pragma once
+#include "LeakedObjectDetector.h"
+#pragma once
 #include "LeakedObjectDetector.h"
 
 struct Window
@@ -11,30 +14,11 @@ struct Window
     int structIntegrity;
     int currDamage;
 
-    Window(float height_, float width_, float weight_) //constructor
-    {
-        this->height = height_;
-        this->width = width_;
-        this->weight = weight_;
-        isClean = true;
-        isOpen = false;
-        isGlassOpaque = true;
-        structIntegrity = 10;
-        currDamage = 0;
-        print();
-        std::cout << "*** Window object created ***" << std::endl;
-    }
-    
-    ~Window() {}
+    Window();
+    Window(float height_, float width_, float weight_);
+    ~Window();
 
-    void print()
-    {
-        std::cout << 
-        "Height: " << this->height << "\n" << 
-        "Width: " << this->width << "\n" << 
-        "Weight: " << this->weight << 
-        std::endl;
-    }
+    void print();
 
     struct Knob
     {

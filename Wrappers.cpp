@@ -1,4 +1,12 @@
 #include "Wrappers.h"
+#include "Human.h"
+#include "Computer.h"
+#include "Watch.h"
+#include "Table.h"
+#include "Window.h"
+#include "Classroom.h"
+#include "School.h"
+#include "Geek.h"
 
 /* 
 ***********************************************************
@@ -44,7 +52,7 @@ SchoolWrapper::SchoolWrapper ( School* ptr ) : ptrToSchool( ptr ) {}
 SchoolWrapper::~SchoolWrapper() { delete ptrToSchool; }
 /* 
 ***********************************************************
-// */
-// // Wrapper for UDT Geek
-// GeekWrapper::GeekWrapper ( Geek* ptr ) : ptrToGeek( ptr ) {}
-// GeekWrapper::~GeekWrapper() { delete ptrToGeek; }
+*/
+// Wrapper for UDT Geek
+GeekWrapper::GeekWrapper ( Geek* ptr ) : ptrToGeek( ptr ) {}
+GeekWrapper::~GeekWrapper() { delete ptrToGeek; }

@@ -1,3 +1,6 @@
+#pragma once
+#include "LeakedObjectDetector.h"
+
 struct Classroom
 {
     int numDesks;
@@ -22,5 +25,5 @@ struct Classroom
     void spawnDesk();
     int howManyFreeDesks();
 
-    // JUCE_LEAK_DETECTOR(Classroom)
+    JUCE_LEAK_DETECTOR(Classroom)
 }; 
