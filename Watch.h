@@ -11,16 +11,8 @@ struct Watch
     bool isResetted;
     float currentAlarmTime;
 
-    Watch() // constructor
-    {
-        numBatteries = 1;
-        totalHours = 12;
-        weight = 50.0f; // in [g]
-        isDigital = true;
-        isResetted = true;
-    }
-
-    ~Watch() {}
+    Watch();
+    ~Watch();
 
     struct Wristband
     {

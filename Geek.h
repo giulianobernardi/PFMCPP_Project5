@@ -1,9 +1,9 @@
 #pragma once
 #include "LeakedObjectDetector.h"
-
-struct Human;
-struct Computer;
-struct Watch;
+// #include needed as I'm instantiating objects
+#include "Human.h" 
+#include "Computer.h"
+#include "Watch.h"
 
 struct Geek
 {

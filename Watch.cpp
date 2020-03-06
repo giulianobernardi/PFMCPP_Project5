@@ -1,6 +1,17 @@
 #include <iostream>
 #include "Watch.h"
 
+Watch::Watch() // constructor
+{
+    numBatteries = 1;
+    totalHours = 12;
+    weight = 50.0f; // in [g]
+    isDigital = true;
+    isResetted = true;
+}
+
+Watch::~Watch() {}
+
 void Watch::printInfo()
 {
     std::cout << 

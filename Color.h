@@ -1,3 +1,4 @@
+#pragma once
 // UDT storing rgba color
 struct Color 
 {
